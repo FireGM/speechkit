@@ -32,6 +32,7 @@ type Client struct {
 	Lang    string
 	Format  string
 	Speaker string
+	Emotion string
 	Cl      *http.Client
 }
 
@@ -73,6 +74,7 @@ func (c *Client) makeReq(text string) (*http.Request, error) {
 	values.Set("lang", c.Lang)
 	values.Set("speaker", c.Speaker)
 	values.Set("key", c.ApiKey)
+	values.Set("emotion", c.Emotion)
 	u := url.URL{}
 	u.Host = defaultHost
 	u.Scheme = defaultScheme
@@ -88,5 +90,6 @@ func (c *Client) makeReq(text string) (*http.Request, error) {
 //DefaultClient lang: ru, format: mp3, speaker: ermil
 func DefaultClient(apiKey string) *Client {
 	cl := &http.Client{Timeout: time.Second * 20}
-	return &Client{ApiKey: apiKey, Lang: RU, Format: "mp3", Speaker: "ermil", Cl: cl}
+	return &Client{ApiKey: apiKey, Lang: RU, Format: "mp3", Speaker: "ermil",
+		Emotion: "good", Cl: cl}
 }
